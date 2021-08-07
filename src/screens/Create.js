@@ -10,12 +10,14 @@ class Create extends Component {
         description: '',
         done: false
     }
-    // componentDidUpdate = () => {
-    //     console.log(this.state.description)
-    // }
+    
     handleSubmit = () => {
         console.log(this.state)
-        axios.post('http://15.206.174.86:4000/todo', this.state).then((res) => console.log(res))
+        axios.post('http://15.206.174.86:4000/todo', this.state).then((res) => {
+            if (res.status === 201) {
+                this.props.navigation.goBack();
+            }
+        })
     }
     render() { 
         const { title, description, done } = this.state;
@@ -36,7 +38,7 @@ class Create extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style = {{ marginTop: 40 }} >
-                    <Button title = 'Submit' style = {{ width: '100%' }} onPress = { this.handleSubmit } />
+                    <Button title = 'Submit' disabled = { !title && true } style = {{ width: '100%', backgroundColor: !title ? '#707070' : '#108377' }} onPress = { this.handleSubmit } />
                 </View>
             </View>
         );
