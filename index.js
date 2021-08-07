@@ -13,6 +13,10 @@ app.get('/todo', (req, res) => {
     res.send(todo);
 });
 
+app.get('/todo/:id', (req, res) => {
+    res.send(todo[req.params.id])
+});
+
 app.post('/todo', (req, res) => {
     const { title, description, done } = req.body;
     const id = randomBytes(4).toString('hex');
