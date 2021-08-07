@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 const PORT = 4000;
 
-var todo = [];
+var todo = {};
 
 app.get('/todo', (req, res) => {
     res.send(todo);
@@ -24,7 +24,7 @@ app.post('/todo', (req, res) => {
         description,
         time
     }
-    todo.push(data);
+    todo[id] = data;
     res.status(201).send(todo[id])
 });
 
