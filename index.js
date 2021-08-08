@@ -34,7 +34,7 @@ app.post('/todo', (req, res) => {
 
 app.delete('/todo/:id', (req, res) => {
     const id = req.params.id;
-    todo = todo.filter((item) => item.id !== id)
+    delete todo[id]
     res.send();
 });
 
