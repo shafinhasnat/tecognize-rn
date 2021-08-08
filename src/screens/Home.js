@@ -52,7 +52,7 @@ class Home extends Component {
                     renderItem = {(item) => {
                         const { title, time, done, id } = item.item;
                         return (
-                            <TodoCard title = { title } time = { time } done = { done } onPress = {() => this.handleTodoPress(id) } />
+                            <TodoCard title = { title } time = { `${time.slice(11, 19)}  |  ${time.slice(0, 10)}` } done = { done } onPress = {() => this.handleTodoPress(id) } />
                         )
                     }}
                 />
