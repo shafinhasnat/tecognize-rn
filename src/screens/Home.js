@@ -6,7 +6,8 @@ import TodoCard from '../components/TodoCard';
 
 class Home extends Component {
     state = { 
-        todoData: []
+        todoData: [],
+        loading: false
     }
 
     componentDidMount = () => {
@@ -24,9 +25,10 @@ class Home extends Component {
     }
     
     fetchData = () => {
+        this.setState({ loading: true });
         axios.get('http://15.206.174.86:4000/todo').then(res => {
             const data = Object.values(res.data)
-            this.setState({ todoData: data.reverse() });
+            this.setState({ todoData: data.reverse(), loading: false });
         })
     }
 
@@ -43,11 +45,12 @@ class Home extends Component {
         return ( 
             <View style = {{ paddingHorizontal: 20, paddingTop: 20 }}>
                 <Button title = '+ Add new' style = {{ width: '100%', marginBottom: 10 }} onPress = { () => this.props.navigation.navigate('Create') }/>
-                {/* <Button title = 'Create' onPress = { () => this.props.navigation.navigate('Create') }/> */}
                 <FlatList 
                     data = { this.state.todoData }
                     keyExtractor = {(item) => item.id}
                     showsVerticalScrollIndicator = {false}
+                    onRefresh={this.fetchData}
+                    refreshing={this.state.loading}
                     ListFooterComponent = {<View style = {{ marginBottom: 80 }} ></View>}
                     renderItem = {(item) => {
                         const { title, time, done, id } = item.item;
